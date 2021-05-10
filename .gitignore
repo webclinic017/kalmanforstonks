@@ -1,1 +1,6 @@
 *.env
+*.bib
+*.txt
+*.gz
+*.png
+__pycache__

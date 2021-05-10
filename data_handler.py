@@ -4,8 +4,7 @@ import numpy as np
 import datetime as dt
 from dotenv import load_dotenv
 import os
-
-
+import pandas as pd
 
 class DataHandler(ABC):
     def __init__(self):
@@ -15,7 +14,7 @@ class DataHandler(ABC):
         APCA_API_BASE_URL = os.environ.get('APCA_API_BASE_URL')
         APCA_API_DATA_URL = os.environ.get('APCA_API_DATA_URL')
         self.api = tradeapi.REST(APCA_API_KEY_ID, APCA_API_SECRET_KEY, APCA_API_BASE_URL, 'v2')
-        
+        print(type(self.api))        
     def get_latest_bars(self, N=1):
         barset = self.api.get_barset(self.symbol, 'day', limit=30)
         return barset[self.symbol]
@@ -36,10 +35,10 @@ class Stock(DataHandler):
         highs = np.zeros(n)
         lows = np.zeros(n)
         closes = np.zeros(n)
-
         i = 0
         for bar in barset:
             print(bar.t)
+##            print(type(bar.t))
             timestamps.append( bar.t )
             opens[i] = bar.o
             highs[i] = bar.h
